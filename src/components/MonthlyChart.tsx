@@ -6,7 +6,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
+  Legend,
 } from "recharts";
 import { monthsData } from "../data";
 
@@ -14,10 +14,9 @@ export function MonthlyChart() {
   const data = monthsData.map((m) => ({
     name: m.name.slice(0, 3).toUpperCase(), // Short name
     fullName: m.name,
-    goals: m.totalGoals,
+    messi: m.totalGoals,
+    cr7: m.cr7TotalGoals,
   }));
-
-  const maxGoals = Math.max(...data.map((d) => d.goals));
 
   return (
     <div className="h-[220px] flex flex-col">
@@ -49,25 +48,26 @@ export function MonthlyChart() {
                   const data = payload[0].payload;
                   return (
                     <div className="bg-black border border-white/20 p-4 rounded-none shadow-2xl">
-                      <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest mb-1">{data.fullName}</p>
-                      <p className="text-2xl font-black text-yellow-400">
-                        {data.goals} <span className="text-sm text-white">GOALS</span>
-                      </p>
+                      <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest mb-2">{data.fullName}</p>
+                      <div className="space-y-2">
+                        <div>
+                          <span className="text-[9px] uppercase tracking-widest text-yellow-400 block mb-1">Messi</span>
+                          <span className="text-xl font-black text-white">{data.messi}</span>
+                        </div>
+                        <div>
+                          <span className="text-[9px] uppercase tracking-widest text-red-500 block mb-1">C. Ronaldo</span>
+                          <span className="text-xl font-black text-white">{data.cr7}</span>
+                        </div>
+                      </div>
                     </div>
                   );
                 }
                 return null;
               }}
             />
-            <Bar dataKey="goals">
-              {data.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={entry.goals === maxGoals ? "#facc15" : "#ffffff"} 
-                  className="transition-all duration-300 hover:opacity-80"
-                />
-              ))}
-            </Bar>
+            <Legend wrapperStyle={{ fontSize: '10px', fontWeight: 'bold' }} />
+            <Bar dataKey="messi" name="MESSI" fill="#facc15" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="cr7" name="C. RONALDO" fill="#ef4444" radius={[2, 2, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

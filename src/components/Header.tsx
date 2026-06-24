@@ -1,4 +1,4 @@
-import { totalGoals } from "../data";
+import { totalGoals, cr7TotalGoals } from "../data";
 
 export function Header() {
   return (
@@ -6,12 +6,19 @@ export function Header() {
       <div>
         <h2 className="text-[10px] tracking-[0.3em] font-bold text-yellow-400 uppercase mb-1">The GOAT Statistics</h2>
         <h1 className="text-4xl sm:text-6xl font-black italic tracking-tighter uppercase leading-none">
-          Messi <br/> <span className="text-transparent border-t-2 border-white pt-1 block mt-1" style={{ WebkitTextStroke: "1px white" }}>Gol Takvimi</span>
+          Messi <span className="text-white/20">vs</span> CR7 <br/> <span className="text-transparent border-t-2 border-white pt-1 block mt-1" style={{ WebkitTextStroke: "1px white" }}>Gol Takvimi</span>
         </h1>
       </div>
-      <div className="text-left sm:text-right">
-        <div className="text-4xl sm:text-5xl font-black text-yellow-400">{totalGoals}</div>
-        <div className="text-[10px] sm:text-xs uppercase tracking-widest opacity-60 mt-1">Kariyer Golü</div>
+      <div className="flex gap-8 text-left sm:text-right">
+        <div>
+          <div className="text-[10px] font-bold text-yellow-400 tracking-widest uppercase mb-1">Messi</div>
+          <div className="text-4xl sm:text-5xl font-black text-white">{totalGoals}</div>
+        </div>
+        <div className="w-px bg-white/20"></div>
+        <div>
+          <div className="text-[10px] font-bold text-red-500 tracking-widest uppercase mb-1">C. Ronaldo</div>
+          <div className="text-4xl sm:text-5xl font-black text-white">{cr7TotalGoals}</div>
+        </div>
       </div>
     </header>
   );

@@ -382,21 +382,34 @@ const MONTH_MAP: Record<string, { id: number; name: string; daysInMonth: number 
   Ar: { id: 12, name: "Aralık", daysInMonth: 31 },
 };
 
+import { cr7RawData } from "./cr7RawData";
+
 export const parsedData: DayData[] = (() => {
   const lines = rawData.split("\n").map((l) => l.trim()).filter(Boolean);
+  const cr7Lines = cr7RawData.split("\n").map((l) => l.trim()).filter(Boolean);
+  
   const data: DayData[] = [];
   
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const cr7Line = cr7Lines[i] || "";
+    
     // Clean emojis and extra text (like 🔝)
     const cleanLine = line.replace(/[✅❌🔝]/g, "").trim();
+    const cleanCr7Line = cr7Line.replace(/[✅❌🔝]/g, "").trim();
+    
     // Match "1 Oc: 0" or "1 T:" 
     const match = cleanLine.match(/^(\d+)\s+([^:]+):\s*(\d*)$/);
+    const cr7Match = cleanCr7Line.match(/^(\d+)\s+([^:]+):\s*(\d*)$/);
     
     if (match) {
       const day = parseInt(match[1], 10);
       const monthKey = match[2].trim();
       const goalsStr = match[3];
       const goals = goalsStr ? parseInt(goalsStr, 10) : 0;
+      
+      const cr7GoalsStr = cr7Match ? cr7Match[3] : "0";
+      const cr7Goals = cr7GoalsStr ? parseInt(cr7GoalsStr, 10) : 0;
       
       const monthInfo = MONTH_MAP[monthKey];
       if (monthInfo) {
@@ -405,6 +418,7 @@ export const parsedData: DayData[] = (() => {
           monthId: monthInfo.id,
           monthName: monthInfo.name,
           goals,
+          cr7Goals,
           dateStr: `${day} ${monthInfo.name}`,
         });
       }
@@ -422,6 +436,7 @@ export const monthsData: MonthData[] = (() => {
       id: m.id,
       name: m.name,
       totalGoals: 0,
+      cr7TotalGoals: 0,
       days: [],
     };
   });
@@ -431,6 +446,7 @@ export const monthsData: MonthData[] = (() => {
     if (map[dayData.monthId]) {
       map[dayData.monthId].days.push(dayData);
       map[dayData.monthId].totalGoals += dayData.goals;
+      map[dayData.monthId].cr7TotalGoals += dayData.cr7Goals;
     }
   });
 
@@ -439,6 +455,7 @@ export const monthsData: MonthData[] = (() => {
 })();
 
 export const totalGoals = parsedData.reduce((acc, curr) => acc + curr.goals, 0);
+export const cr7TotalGoals = parsedData.reduce((acc, curr) => acc + curr.cr7Goals, 0);
 
 // Helper to get data by exact date
 export const getGoalsByDate = (monthId: number, day: number): DayData | undefined => {

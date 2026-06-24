@@ -18,9 +18,10 @@ export function BirthdayFinder() {
   }, [selectedMonth, selectedDay]);
 
   const goals = currentData ? currentData.goals : 0;
+  const cr7Goals = currentData ? currentData.cr7Goals : 0;
 
   useEffect(() => {
-    if (goals > 0) {
+    if (goals > 0 || cr7Goals > 0) {
       confetti({
         particleCount: 40,
         spread: 60,
@@ -28,7 +29,7 @@ export function BirthdayFinder() {
         colors: ["#facc15", "#ffffff", "#000000"],
       });
     }
-  }, [selectedMonth, selectedDay, goals]);
+  }, [selectedMonth, selectedDay, goals, cr7Goals]);
 
   return (
     <div className="p-6 flex flex-col bg-neutral-950 h-full">
@@ -87,24 +88,47 @@ export function BirthdayFinder() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.15 }}
-              className="p-5 bg-neutral-900 border border-white/5 rounded-none"
+              className="p-5 bg-neutral-900 border border-white/5 flex gap-4"
             >
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-yellow-400 mb-1">Doğum Günü Sonucu</h3>
-              {goals > 0 ? (
-                <>
-                  <p className="text-3xl sm:text-4xl font-black mb-1">{goals} GOAL{goals > 1 ? 'S' : ''}</p>
-                  <p className="text-[9px] sm:text-[10px] opacity-60 leading-relaxed uppercase tracking-widest">
-                    Messi, {selectedDay} {monthsData.find(m => m.id === selectedMonth)?.name} tarihinde toplam <strong className="text-white">{goals} gol</strong> attı.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="text-3xl sm:text-4xl font-black mb-1 text-neutral-600">0 GOALS</p>
-                  <p className="text-[9px] sm:text-[10px] opacity-60 leading-relaxed uppercase tracking-widest">
-                    Bu tarihte gol kaydedilmedi.
-                  </p>
-                </>
-              )}
+              <div className="flex-1">
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-yellow-400 mb-1">Messi</h3>
+                {goals > 0 ? (
+                  <>
+                    <p className="text-3xl sm:text-4xl font-black mb-1 text-white">{goals}</p>
+                    <p className="text-[9px] sm:text-[10px] opacity-60 leading-relaxed uppercase tracking-widest">
+                      <strong className="text-white">{goals} gol</strong> attı.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-3xl sm:text-4xl font-black mb-1 text-neutral-600">0</p>
+                    <p className="text-[9px] sm:text-[10px] opacity-60 leading-relaxed uppercase tracking-widest">
+                      Gol yok.
+                    </p>
+                  </>
+                )}
+              </div>
+              
+              <div className="w-px bg-white/10 my-2" />
+              
+              <div className="flex-1">
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-red-500 mb-1">C. Ronaldo</h3>
+                {cr7Goals > 0 ? (
+                  <>
+                    <p className="text-3xl sm:text-4xl font-black mb-1 text-white">{cr7Goals}</p>
+                    <p className="text-[9px] sm:text-[10px] opacity-60 leading-relaxed uppercase tracking-widest">
+                      <strong className="text-white">{cr7Goals} gol</strong> attı.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-3xl sm:text-4xl font-black mb-1 text-neutral-600">0</p>
+                    <p className="text-[9px] sm:text-[10px] opacity-60 leading-relaxed uppercase tracking-widest">
+                      Gol yok.
+                    </p>
+                  </>
+                )}
+              </div>
             </motion.div>
         </AnimatePresence>
       </div>
