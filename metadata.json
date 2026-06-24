@@ -1,0 +1,6 @@
+{
+  "name": "Messi Gol Takvimi",
+  "description": "Doğum gününüzde Lionel Messi'nin kaç gol attığını keşfedebileceğiniz görsel verilerle dolu eğlenceli bir uygulama.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
