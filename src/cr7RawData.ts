@@ -1,4 +1,5 @@
-export const cr7RawData = `❌1 Oc: 0
+export const cr7RawData = `
+❌1 Oc: 0
 ❌2 Oc: 0
 ✅3 Oc: 4
 ✅4 Oc: 1
@@ -24,7 +25,7 @@ export const cr7RawData = `❌1 Oc: 0
 ✅24 Oc: 2
 ✅25 Oc: 3
 ✅26 Oc: 2
-✅27 Oc: 10
+✅27 Oc: 8
 ✅28 Oc: 1
 ✅29 Oc: 1
 ✅30 Oc: 4
@@ -97,7 +98,7 @@ export const cr7RawData = `❌1 Oc: 0
 ✅6 N: 2
 ✅7 N: 1
 ✅8 N: 2
-✅9 N: 4
+✅9 N: 3
 ✅10 N: 4
 ✅11 N: 6
 ✅12 N: 7
